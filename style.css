@@ -176,7 +176,7 @@ body {
     font-style: italic;
     font-size: 14px;
     color: #6b7280;
-    margin-top: 4px;
+    margin-top: 12px;
 }
 
 .tasks-list label {
@@ -212,6 +212,17 @@ body {
 
 .tasks-list::-webkit-scrollbar {
     width: 0px;
+}
+
+.app-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-content {
+    margin: 0 auto;
 }
 
 @media (max-width: 480px) { 
