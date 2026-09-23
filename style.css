@@ -1,3 +1,6 @@
+
+
+
 * {
     margin: 0;
     padding: 0;
@@ -202,8 +205,8 @@ body {
 }
 
 
-.tasks-list input[type="checkbox"]:checked ~ label {
-    text-decoration: line-through;
+.tasks-list li:has(input[type="checkbox"]:checked) .task-text {
+    text-decoration: line-through !important;
     color: #9ca3af;
     transition: 0.2s;
 }
