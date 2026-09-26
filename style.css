@@ -41,6 +41,7 @@ body {
     display: grid;
     grid-template-columns: 1fr;
     gap:  16px;
+    -webkit-overflow-scrolling: touch;
 }
 
 .tasks-list li {
@@ -199,6 +200,8 @@ body {
     font-size: 14px;
     color: #6b7280;
     margin-top: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
 }
 
 .tasks-list label {
@@ -226,6 +229,7 @@ body {
     background-color: transparent;
     cursor: pointer;
     transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
 .tasks-list input[type="checkbox"]:checked {
@@ -272,6 +276,7 @@ body {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    letter-spacing: -0.5px;
 }
 
 .header-content {
@@ -283,6 +288,8 @@ body {
     margin: 0 16px;
     word-break: break-word;
     text-align: left;
+    overflow-wrap: anywhere;
+    transition: color 0.3s ease;
 }
 
 @media (max-width: 480px) { 
