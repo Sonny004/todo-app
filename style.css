@@ -293,6 +293,15 @@ body {
     transition: color 0.3s ease;
 }
 
+
+.tasks-list li.selected-task {
+    background-color: #ffffff;
+    border-color: #007bff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+    opacity: 1;
+}
+
 @media (max-width: 480px) { 
     .todo-container {
         width: 100%;

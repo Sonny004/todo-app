@@ -2,6 +2,7 @@
 const myInput = document.querySelector(".todo-form input");
 const myBtn = document.querySelector(".todo-form button");
 const tasksContainer = document.querySelector("#tasksContainer");
+let activeIndex = -1; 
 
 // -commit "База данных"
 
@@ -15,7 +16,6 @@ let taskNumber = myDatabase.length;
 function main() {
     const userText = myInput.value.trim();
     if (userText === "") {
-        alert("Не ленись уёбище, введи задачу!");
         userText.value = "";
         return;
     }
@@ -32,6 +32,7 @@ function main() {
 
 
     // -commit "Запись в базу данный и на диск"
+    taskNumber++;
     myDatabase.push(taskObject);
     localStorage.setItem("myTaskArray", JSON.stringify(myDatabase));
 
@@ -45,7 +46,7 @@ function main() {
 // -commit "Функция отрисовки карточек на экране"
 function renderTasks() {
     tasksContainer.innerHTML = "";
-    myDatabase.forEach(function (task) {
+    myDatabase.forEach(function (task, index) {
         const li = document.createElement("li");
         const span = document.createElement("span");
         span.textContent = task.text;
@@ -67,7 +68,10 @@ function renderTasks() {
         li.appendChild(numberSpan);
         li.appendChild(span);
         li.appendChild(checkbox);
-        tasksContainer.appendChild(li)
+        tasksContainer.appendChild(li);
+        if (index === activeIndex) {
+            li.classList.add("selected-task");
+        }
     });
 }
 
@@ -77,7 +81,58 @@ window.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         main();
     }
+    if (event.key === "ArrowDown") {
+        if (event.shiftKey === true) {
+            tasksContainer.scrollBy({ top: 40, behavior: "smooth" })
+            return;
+        }
+        const currentCards = document.querySelectorAll(".tasks-list li");
+        activeIndex = Array.from(currentCards).findIndex(card => card.classList.contains("selected-task"));
+        console.log("Клик вниз! Глобальный индекс сейчас равен:", activeIndex);
+        if (activeIndex === -1) {
+            currentCards[0].classList.add("selected-task");
+        } else {
+            currentCards[activeIndex].classList.remove("selected-task");
+            if (activeIndex === currentCards.length - 1) {
+                currentCards[0].classList.add("selected-task");
+            } else {
+                currentCards[activeIndex + 1].classList.add("selected-task");
+            }
+        }
+    }
+    if (event.key === "ArrowUp") {
+        if (event.shiftKey === true) {
+            tasksContainer.scrollBy({ top: -40, behavior: "smooth" })
+            return;
+        }
+        const currentCards = document.querySelectorAll(".tasks-list li");
+        activeIndex = Array.from(currentCards).findIndex(card => card.classList.contains("selected-task"));
+        if (activeIndex === -1) {
+            currentCards[currentCards.length - 1].classList.add("selected-task");
+        } else {
+            currentCards[activeIndex].classList.remove("selected-task");
+            if (activeIndex === 0) {
+                currentCards[currentCards.length - 1].classList.add("selected-task");
+            } else {
+                currentCards[activeIndex - 1].classList.add("selected-task");
+            }
+        }
+    }
+    
+    if (event.key === "Enter" && event.ctrlKey) {
+        const currentCards = document.querySelectorAll(".tasks-list li");
+        activeIndex = Array.from(currentCards).findIndex(card => card.classList.contains("selected-task"));
+        console.log("Ctlr + Enter! Робот видит индекс:", activeIndex);
+        if (activeIndex !== -1) {
+            currentCards[activeIndex].querySelector("input").click();
+        }
+
+    }
+    if (event.key === "/") {
+        event.preventDefault();
+        myInput.focus();
+    }
 });
 
-// -commit "Автозапуск отричовки при загрузке страницы"
+// -commit "Автозапуск отрисовки при загрузке страницы"
 renderTasks();
