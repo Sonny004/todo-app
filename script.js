@@ -2,7 +2,44 @@
 const myInput = document.querySelector(".todo-form input");
 const myBtn = document.querySelector(".todo-form button");
 const tasksContainer = document.querySelector("#tasksContainer");
-let activeIndex = -1; 
+let activeIndex = -1;
+const calendarGrid = document.querySelector("#calendarGrid");
+const prevMonthBtn = document.querySelector("#prevMonthBtn");
+const nextMonthBtn = document.querySelector("#nextMonthBtn");
+const calendarTitle = document.querySelector("#calendarTitle");
+const monthNames = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+let currentYear = 2026;
+let currentMonth = 10;
+const liveClock = document.querySelector("#liveClock");
+const liveDate = document.querySelector("#liveDate");
+
+// -commit "Зацеп кнопки бургер-меню"
+const burgerBtn = document.querySelector(".menu-btn");
+const sidebarMenu = document.querySelector(".sidebar-menu");
+
+// -commit "Зацеп главного экрана задачника"
+const mainScreen = document.querySelector("#screenMain");
+const calendarScreen = document.querySelector("#screenCalendar");
+const goalsScreen = document.querySelector("#screenGoals");
+const weekPlanScreen = document.querySelector("#screenWeekPlan");
+const timerScreen = document.querySelector("#screenTimer");
+const habitsScreen = document.querySelector("#screenHabits");
+const settingsScreen = document.querySelector("#screenSettings");
+
+
+// -commit "Зацепы пунктов бокового меню"
+const btnGoHome = document.querySelector("#goHomeBtn")
+const btnCalendar = document.querySelector("#menuCalendar");
+const btnGoals = document.querySelector("#menuGoals");
+const btnWeekPlan = document.querySelector("#menuWeekPlan");
+const btnTimer = document.querySelector("#menuTimer");
+const btnHabits = document.querySelector("#menuHabits");
+const btnSettings = document.querySelector("#menuSettings");
+
+// -commit "Датчик открытия бургер-меню"
+burgerBtn.addEventListener("click", function () {
+    sidebarMenu.classList.toggle("open");
+});
 
 // -commit "База данных"
 
@@ -118,7 +155,7 @@ window.addEventListener("keydown", function (event) {
             }
         }
     }
-    
+
     if (event.key === "Enter" && event.ctrlKey) {
         const currentCards = document.querySelectorAll(".tasks-list li");
         activeIndex = Array.from(currentCards).findIndex(card => card.classList.contains("selected-task"));
@@ -136,3 +173,138 @@ window.addEventListener("keydown", function (event) {
 
 // -commit "Автозапуск отрисовки при загрузке страницы"
 renderTasks();
+
+
+// -commit "SPA-коммутотор: переход на экран календаря"
+btnCalendar.addEventListener("click", function () {
+    sidebarMenu.classList.remove("open");
+    [mainScreen, calendarScreen, goalsScreen, weekPlanScreen, timerScreen, habitsScreen, settingsScreen].forEach(screen => {
+        screen.classList.add("hidden");
+    });
+    calendarScreen.classList.remove("hidden");
+});
+
+// -commit "SPA-коммутотор: переход на экран целей на период"
+btnGoals.addEventListener("click", function () {
+    sidebarMenu.classList.remove("open");
+    [mainScreen, calendarScreen, goalsScreen, weekPlanScreen, timerScreen, habitsScreen, settingsScreen].forEach(screen => {
+        screen.classList.add("hidden");
+    });
+    goalsScreen.classList.remove("hidden");
+});
+
+// -commit "SPA-коммутотор: переход на экран план на неделю"
+btnWeekPlan.addEventListener("click", function () {
+    sidebarMenu.classList.remove("open");
+    [mainScreen, calendarScreen, goalsScreen, weekPlanScreen, timerScreen, habitsScreen, settingsScreen].forEach(screen => {
+        screen.classList.add("hidden");
+    });
+    weekPlanScreen.classList.remove("hidden");
+});
+
+// -commit "SPA-коммутотор: переход на экран таймер"
+btnTimer.addEventListener("click", function () {
+    sidebarMenu.classList.remove("open");
+    [mainScreen, calendarScreen, goalsScreen, weekPlanScreen, timerScreen, habitsScreen, settingsScreen].forEach(screen => {
+        screen.classList.add("hidden");
+    });
+    timerScreen.classList.remove("hidden");
+});
+
+// -commit "SPA-коммутотор: переход на экран таймера привычек"
+btnHabits.addEventListener("click", function () {
+    sidebarMenu.classList.remove("open");
+    [mainScreen, calendarScreen, goalsScreen, weekPlanScreen, timerScreen, habitsScreen, settingsScreen].forEach(screen => {
+        screen.classList.add("hidden");
+    });
+    habitsScreen.classList.remove("hidden");
+});
+
+// -commit "SPA-коммутотор: переход на экран настроек"
+btnSettings.addEventListener("click", function () {
+    sidebarMenu.classList.remove("open");
+    [mainScreen, calendarScreen, goalsScreen, weekPlanScreen, timerScreen, habitsScreen, settingsScreen].forEach(screen => {
+        screen.classList.add("hidden");
+    });
+    settingsScreen.classList.remove("hidden");
+});
+
+// -commit "SPA-коммутотор: переход на главный экран"
+btnGoHome.addEventListener("click", function () {
+    sidebarMenu.classList.remove("open");
+    [mainScreen, calendarScreen, goalsScreen, weekPlanScreen, timerScreen, habitsScreen, settingsScreen].forEach(screen => {
+        screen.classList.add("hidden");
+    });
+    mainScreen.classList.remove("hidden");
+});
+
+
+
+
+function renderCalendar() {
+    calendarGrid.innerHTML = "";
+    calendarTitle.textContent = monthNames[currentMonth] + " " + currentYear;
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    let emptyCells;
+    if (firstDay === 0) {
+        emptyCells = 6;
+    } else {
+        emptyCells = firstDay - 1;
+    }
+    for (let j = 0; j < emptyCells; j++) {
+        const emptyDiv = document.createElement("div");
+        emptyDiv.classList.add("calendar-empty");
+        calendarGrid.appendChild(emptyDiv);
+    }
+    for (let i = 1; i <= daysInMonth; i++) {
+        const dayDiv = document.createElement("div");
+        dayDiv.textContent = i;
+        dayDiv.classList.add("calendar-day");
+        calendarGrid.appendChild(dayDiv);
+        dayDiv.addEventListener("click", function () {
+            if (dayDiv.classList.contains("day-green")) {
+                dayDiv.classList.remove("day-green");
+                dayDiv.classList.add("day-red");
+            } else if (dayDiv.classList.contains("day-red")) {
+                dayDiv.classList.remove("day-red");
+                dayDiv.classList.add("day-yellow");
+            } else {
+                dayDiv.classList.remove("day-yellow");
+                dayDiv.classList.add("day-green");
+            }
+        });
+    }
+}
+renderCalendar();
+
+
+nextMonthBtn.addEventListener("click", function () {
+    currentMonth++;
+    if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+    }
+    renderCalendar();
+});
+
+prevMonthBtn.addEventListener("click", function () {
+    currentMonth--;
+    if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+    }
+    renderCalendar();
+});
+
+
+function updateClock() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+    const seconds = String(now.getSeconds()).padStart(2, "0");
+    liveClock.textContent = hours + ":" + minutes + ":" + seconds;
+    liveDate.textContent = now.toLocaleDateString("ru-RU", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+}
+updateClock();
+setInterval(updateClock, 1000);

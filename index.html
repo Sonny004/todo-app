@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,40 +8,44 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://googleapis.com" rel="stylesheet">
 </head>
+
 <body>
     <main class="todo-container">
         <div class="sidebar-menu">
             <div class="sidebar-profile">
                 <h3>Меню</h3>
+                <a href="#" id="goHomeBtn" class="home-icon-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#718096" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                </a>
             </div>
             <ul class="sidebar-links">
-                <li><a href="#">🎨 Настройки и Стили</a></li>
-                <li><a href="#">📅 Календарь</a></li>
-                <li><a href="#">🎯 Цели на период</a></li>
-                <li><a href="#">📋 План на неделю</a></li>
-                <li><a href="#">⏱️ Многозадачный таймер</a></li>
-                <li><a href="#">🔔 Таймер привычек</a></li>
+                <li id="menuSettings"><a href="#">🎨 Настройки и Стили</a></li>
+                <li id="menuCalendar"><a href="#">📅 Календарь</a></li>
+                <li id="menuGoals"><a href="#">🎯 Цели на период</a></li>
+                <li id="menuWeekPlan"><a href="#">📋 План на неделю</a></li>
+                <li id="menuTimer"><a href="#">⏱️ Многозадачный таймер</a></li>
+                <li id="menuHabits"><a href="#">🔔 Таймер привычек</a></li>
             </ul>
-            </div>
-                    
-
+        </div>
         <header class="todo-header">
-             <input type="checkbox" id="menu-toggle" class="menu-toggle-input">
+            <input type="checkbox" id="menu-toggle" class="menu-toggle-input">
             <div class="app-header">
                 <label for="menu-toggle" class="menu-btn">&#9776</label>
-            <div class="header-content">
-                <h1>Мои цели 📝</h1>
             </div>
-            </div>
-            <p>План на день</p>
         </header>
-        <section class="todo-form">
-            <input type="text" placeholder="Какая цель на сегодня?">
-            <button type="button">Добавить</button>
-        </section>
-        <section class="tasks-section">
-            <ul class="tasks-list" id="tasksContainer">
-                <!-- <li>
+
+        <section id="screenMain">
+            <section class="todo-form">
+                <input type="text" placeholder="Какая цель на сегодня?">
+                <button type="button">Добавить</button>
+            </section>
+            <section class="tasks-section">
+                <ul class="tasks-list" id="tasksContainer">
+                    <!-- <li>
                     <span class="task-number">#1</span>
                     <label for="task1" class="task-text">упражнение вакуум</label>
                     <input type="checkbox" id="task1">
@@ -105,10 +110,31 @@
                     <label for="task13" class="task-text">умывание уходовыми средствами</label>
                     <input type="checkbox" id="task13">
                 </li>  -->
-            </ul>
-        </section>                       
-
+                </ul>
+            </section>
+        </section>
+        <section id="screenSettings" class="hidden"></section>
+        <section id="screenCalendar" class="hidden">
+            <div class="calendar-clock-box">
+            <div id="liveClock">00:00:00</div>
+            <div id="liveDate">Суббота, 14 ноября 2026</div>
+            </div>
+            <div class="calendar-header">
+                <button id="prevMonthBtn"><</button>
+                <h2 id="calendarTitle">Ноябрь 2026</h2>
+                <button id="nextMonthBtn">></button>
+            </div>
+            <div class="calendar-weekdays">
+                <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span>
+            </div>
+            <div id="calendarGrid" class="calendar-grid"></div>
+        </section>
+        <section id="screenGoals" class="hidden"></section>
+        <section id="screenWeekPlan" class="hidden"></section>
+        <section id="screenTimer" class="hidden"></section>
+        <section id="screenHabits" class="hidden"></section>
     </main>
-    <script src="script.js"></script>   
+    <script src="script.js"></script>
 </body>
+
 </html>
