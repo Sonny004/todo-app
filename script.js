@@ -12,6 +12,17 @@ let currentYear = 2026;
 let currentMonth = 10;
 const liveClock = document.querySelector("#liveClock");
 const liveDate = document.querySelector("#liveDate");
+const goalTitleInput = document.querySelector("#goalTitleInput");
+const goalDateInput = document.querySelector("#goalDateInput");
+const goalDescInput = document.querySelector("#goalDescInput");
+const addGoalBtn = document.querySelector("#addGoalBtn");
+const goalsList = document.querySelector("#goalsList");
+let goalsDatabase = [];
+const discriptionWindow = document.querySelector("#discriptionWindow");
+const dWBtnClose = document.querySelector("#dWBtnClose");
+const dWText = document.querySelector("#dWText");
+const pencilBtn = document.querySelector("#pencilBtn");
+const goalsForm = document.querySelector("#goals-form");
 
 // -commit "Зацеп кнопки бургер-меню"
 const burgerBtn = document.querySelector(".menu-btn");
@@ -308,3 +319,78 @@ function updateClock() {
 }
 updateClock();
 setInterval(updateClock, 1000);
+
+pencilBtn.addEventListener("click", function(){
+    goalsForm.classList.toggle("hidden");
+});
+
+addGoalBtn.addEventListener("click", function () {
+    if (goalTitleInput.value.trim() === "")
+        return;
+    const newGoal = {
+        id: Date.now(),
+        title: goalTitleInput.value.trim(),
+        deadline: goalDateInput.value,
+        description: goalDescInput.value.trim(),
+        isDone: false
+    }
+    goalsDatabase.push(newGoal);
+    goalsForm.classList.add("hidden");
+    goalTitleInput.value = "";
+    goalDateInput.value = "";
+    goalDescInput.value = "";
+    renderGoals();
+});
+
+function renderGoals() {
+    goalsList.innerHTML = "";
+    goalsDatabase.forEach(function (goal, index) {
+        const li = document.createElement("li");
+        li.classList.add("goal-card");
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = goal.isDone;
+        checkbox.classList.add("goal-checkbox");
+        checkbox.addEventListener("change", function () {
+            goal.isDone = checkbox.checked;
+            renderGoals();
+        });
+        const delBtn = document.createElement("button");
+        delBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>';
+        delBtn.classList.add("delete-goal-btn");
+        delBtn.addEventListener("click", function () {
+            goalsDatabase.splice(index, 1);
+            renderGoals();
+        });
+        const span = document.createElement("span");
+        span.classList.add("goal-number");
+        span.textContent = (index + 1) + ".";
+        const contentDiv = document.createElement("div");
+        contentDiv.classList.add("goal-content");
+        const titleDiv = document.createElement("div");
+        titleDiv.classList.add("goal-title");
+        titleDiv.textContent = goal.title;
+        const deadlineDiv = document.createElement("div");
+        deadlineDiv.classList.add("goal-deadline");
+        deadlineDiv.textContent = goal.deadline ? "Срок: " + goal.deadline : "Без срока";
+        contentDiv.appendChild(titleDiv);
+        contentDiv.appendChild(deadlineDiv);
+        const actionsDiv = document.createElement("div");
+        actionsDiv.classList.add("goal-actions");
+        actionsDiv.appendChild(checkbox);
+        actionsDiv.appendChild(delBtn);
+        li.appendChild(span);
+        li.appendChild(contentDiv);
+        li.appendChild(actionsDiv);
+        goalsList.appendChild(li);
+        titleDiv.addEventListener("click", function () {
+            discriptionWindow.classList.remove("hidden");
+            dWText.textContent = goal.description;
+        });
+    });
+
+}
+
+dWBtnClose.addEventListener("click", function () {
+    discriptionWindow.classList.add("hidden");
+});

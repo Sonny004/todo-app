@@ -45,71 +45,6 @@
             </section>
             <section class="tasks-section">
                 <ul class="tasks-list" id="tasksContainer">
-                    <!-- <li>
-                    <span class="task-number">#1</span>
-                    <label for="task1" class="task-text">упражнение вакуум</label>
-                    <input type="checkbox" id="task1">
-                </li>
-                <li>
-                    <span class="task-number">#2</span>
-                    <label for="task2" class="task-text">умывание холодной водой</label>
-                    <input type="checkbox" id="task2">                    
-                </li>
-                <li>
-                    <span class="task-number">#3</span>
-                    <label for="task3" class="task-text">стакан тёплой воды</label>
-                    <input type="checkbox" id="task3">
-                </li>
-                <li>
-                    <span class="task-number">#4</span>
-                    <label for="task4" class="task-text">английский язык</label>
-                    <input type="checkbox" id="task4">
-                </li>
-                <li>
-                    <span class="task-number">#5</span>
-                    <label for="task5" class="task-text">программирование</label>
-                    <input type="checkbox" id="task5">
-                </li>
-                <li>
-                    <span class="task-number">#6</span>
-                    <label for="task6" class="task-text">слепая печать</label>
-                    <input type="checkbox" id="task6">
-                </li>
-                <li>
-                    <span class="task-number">#7</span>
-                    <label for="task7" class="task-text">тренеровка позвоночника</label>
-                    <input type="checkbox" id="task7">
-                </li>
-                <li>
-                    <span class="task-number">#8</span>
-                    <label for="task8" class="task-text">тренеровка ИЛИ апеоэ</label>
-                    <input type="checkbox" id="task8">
-                </li>
-                <li>
-                    <span class="task-number">#9</span>
-                    <label for="task9" class="task-text">упражнения речи + звук "р"</label>
-                    <input type="checkbox" id="task9">
-                </li>
-                <li>
-                    <span class="task-number">#10</span>
-                    <label for="task10" class="task-text">упражнения Кегеля</label>
-                    <input type="checkbox" id="task10">
-                </li>
-                <li>
-                    <span class="task-number">#11</span>
-                    <label for="task11" class="task-text">3л воды в день</label>
-                    <input type="checkbox" id="task11">
-                </li>
-                <li>
-                    <span class="task-number">12:</span>
-                    <label for="task12" class="task-text">сон 9 часов с прошлого дня</label>
-                    <input type="checkbox" id="task12">
-                </li>
-                <li>
-                    <span class="task-number">#13</span>
-                    <label for="task13" class="task-text">умывание уходовыми средствами</label>
-                    <input type="checkbox" id="task13">
-                </li>  -->
                 </ul>
             </section>
         </section>
@@ -129,7 +64,25 @@
             </div>
             <div id="calendarGrid" class="calendar-grid"></div>
         </section>
-        <section id="screenGoals" class="hidden"></section>
+        <section id="screenGoals" class="hidden">
+            <div class="hat">
+                <button id="pencilBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></button>
+                <h2>Цели на период</h2>
+            </div>
+            <div id="goals-form" class="hidden">
+                <input type="text" id="goalTitleInput" placeholder="Название глобальной цели">
+                <textarea id="goalDescInput" placeholder="Подробное описание и план действий"></textarea>
+                <div class="input-string">
+                    <input type="date" id="goalDateInput">
+                    <button id="addGoalBtn">Добавить цель</button>
+                </div>
+            </div>
+            <ul id="goalsList" class="goals-list"></ul>
+            <div id="discriptionWindow" class="hidden">
+                <button id="dWBtnClose"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                <p id="dWText"></p>
+            </div>
+        </section>
         <section id="screenWeekPlan" class="hidden"></section>
         <section id="screenTimer" class="hidden"></section>
         <section id="screenHabits" class="hidden"></section>

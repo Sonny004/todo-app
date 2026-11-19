@@ -33,6 +33,7 @@ body {
     justify-content: start;
     margin-bottom: 10px;
 }
+
 .tasks-list {
     list-style: none;
     margin-top: 10px;
@@ -41,7 +42,7 @@ body {
     overflow-y: auto;
     display: grid;
     grid-template-columns: 1fr;
-    gap:  16px;
+    gap: 16px;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -106,7 +107,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    flex-grow: 1; 
+    flex-grow: 1;
 
 }
 
@@ -133,7 +134,9 @@ body {
 .menu-btn {
     font-size: 24px;
     cursor: pointer;
-    color: #000000/*#1f2937*/;
+    color: #000000
+        /*#1f2937*/
+    ;
     display: inline-block;
     margin-bottom: 10px;
     user-select: none;
@@ -146,8 +149,8 @@ body {
     color: #000000;
 }
 
-.menu-toggle-input:checked ~ .sidebar-menu {
-    left:0
+.menu-toggle-input:checked~.sidebar-menu {
+    left: 0
 }
 
 .todo-header {
@@ -245,7 +248,7 @@ body {
 }
 
 .tasks-list input[type="checkbox"]:checked {
-    background-color:  rgb(5, 250, 5);
+    background-color: rgb(5, 250, 5);
     border-color: #00ea52;
     background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxwYXRoIGQ9Ik0yMCA2TDkgMTdsLTUtNSIvPjwvc3ZnPg==");
     background-size: 14px;
@@ -273,17 +276,18 @@ body {
 .tasks-list::-webkit-scrollbar {
     width: 6px;
 }
- .tasks-list::-webkit-scrollbar {
+
+.tasks-list::-webkit-scrollbar {
     background: transparent;
- }
+}
 
 
- .tasks-list::-webkit-scrollbar-thumb {
+.tasks-list::-webkit-scrollbar-thumb {
     background-color: #d1d5db;
     border-radius: 10px;
- }
+}
 
-.app-header{
+.app-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -315,7 +319,7 @@ body {
 
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 
@@ -342,7 +346,8 @@ body {
     text-align: center;
 }
 
-.calendar-weekdays, .calendar-grid {
+.calendar-weekdays,
+.calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 8px;
@@ -353,6 +358,7 @@ body {
     font-weight: bold;
     color: #718096;
 }
+
 .calendar-day {
     height: 40px;
     display: flex;
@@ -388,7 +394,8 @@ body {
 }
 
 
-#prevMonthBtn, #nextMonthBtn {
+#prevMonthBtn,
+#nextMonthBtn {
     border: none;
     background: none;
     font-size: 20px;
@@ -417,7 +424,180 @@ body {
     color: #64748b;
 }
 
-@media (max-width: 480px) { 
+
+.hat h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    flex-grow: 1;
+}
+
+
+#goals-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+
+#goalTitleInput,
+#goalDescInput {
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+#goalDescInput {
+    min-height: 70px;
+    resize: vertical;
+}
+
+
+#addGoalBtn {
+    padding: 12px;
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.goals-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.goal-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #cbd5e1;
+    padding: 12px;
+    gap: 12px;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.15);
+}
+
+.goal-number {
+    flex-shrink: 0;
+}
+
+
+.goal-content {
+    flex-grow: 1;
+}
+
+.goal-title {
+    color: #1e293b;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.delete-goal-btn {
+    appearance: none;
+    outline: none;
+    border: none;
+    height: 30px;
+    width: 30px;
+    border-radius: 12px;
+    margin-left: 10px;
+}
+
+
+.goal-checkbox {
+    height: 15px;
+    width: 15px;
+}
+
+.delete-goal-btn:hover {
+    background-color: #ef4444;
+}
+
+#discriptionWindow {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    padding: 14px;
+    border-radius: 16px;
+    background-color: #f8fafc;
+    box-shadow:  0 25px 50px rgba(0, 0, 0, 0.35);
+    color: #1e293b;
+    height: 200px;
+    width: 320px;
+    box-sizing: border-box;
+    word-break: break-word;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+#dWBtnClose {
+    background-color: #f8fafc;
+    color: #94a3b8;
+    outline: none;
+    border: none;
+    align-self: flex-end;
+}
+
+#dWBtnClose:hover {
+    background-color: #ef4444;
+}
+
+.goal-deadline {
+    color: #64748b;
+    font-size: 12px;
+}
+
+.goal-actions {
+    flex-shrink: 0;
+}
+
+
+.input-string {
+    flex-direction: row;
+}
+
+#goalDateInput {
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+    flex-grow: 1;
+    width: 62%;
+}
+
+.hat {
+    display: flex;
+    flex-direction: row;
+}
+
+#pencilBtn {
+    outline: none;
+    border: none;
+    flex-shrink: 0;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+}
+
+#pencilBtn:hover {
+    transform: scale(1.2);
+}
+
+@media (max-width: 480px) {
     .todo-container {
         width: 100%;
         height: 100vh;
@@ -425,12 +605,13 @@ body {
         box-shadow: none;
         padding: 12px;
     }
-    .todo-form input{
+
+    .todo-form input {
         padding: 14px;
         font-size: 16px;
     }
 
-    .todo-form button{
+    .todo-form button {
         padding: 14px;
         font-size: 16px;
     }
