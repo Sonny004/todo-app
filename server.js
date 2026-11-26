@@ -12,6 +12,19 @@ db.exec(`
         isDone INTEGER DEFAULT 0
     )
 `);
+
+db.exec (`
+    CREATE TABLE IF NOT EXISTS goals (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    deadline TEXT,
+    description TEXT,
+    isDone INTEGER DEFAULT 0
+    )
+`);
+
+
+
 const PORT = 3000;
 
 app.get("/", function(req, res){
@@ -31,6 +44,12 @@ app.get("/api/tasks", function(req, res){
     res.json(tasksFromDb);
 });
 
+app.get("/api/goals", function(req, res){
+    const stmt = db.prepare("SELECT * FROM goals");
+    const goalsFromDb = stmt.all();
+    res.json(goalsFromDb);
+});
+
 app.post("/api/tasks", function(req, res){
     const newTask = req.body;
     const stmt = db.prepare("INSERT INTO tasks (text, isDone) VALUES (?, ?)");
@@ -40,6 +59,9 @@ app.post("/api/tasks", function(req, res){
         text: newTask.text,
         isDone: 0
     });
+});
+app.post("/api/goals", function(req, res){
+    
 });
 
 app.listen(PORT, function(){

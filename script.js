@@ -64,6 +64,14 @@ async function loadTasksFromServer() {
 }
 loadTasksFromServer();
 
+async function loadGoalsFromServer() {
+    const responce = await fetch("http://localhost:3000/api/goals", { cache: "no-store"});
+    const data = await responce.json();
+    goalsDatabase = data;
+    renderGoals();
+}
+loadGoalsFromServer();
+
 // -commit "Счётчик Задач"
 
 let taskNumber = myDatabase.length;
