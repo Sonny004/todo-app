@@ -54,14 +54,22 @@ burgerBtn.addEventListener("click", function () {
 
 // -commit "База данных"
 
-const myDatabase = JSON.parse(localStorage.getItem("myTaskArray")) || [];
+let myDatabase = [];
+
+async function loadTasksFromServer() {
+    const response = await fetch("http://localhost:3000/api/tasks", { cache: "no-store" });
+    const data = await response.json();
+    myDatabase = data;
+    renderTasks();
+}
+loadTasksFromServer();
 
 // -commit "Счётчик Задач"
 
 let taskNumber = myDatabase.length;
 
 // -commit "Главная функция ввода"
-function main() {
+async function main() {
     const userText = myInput.value.trim();
     if (userText === "") {
         userText.value = "";
@@ -78,11 +86,19 @@ function main() {
         isDone: false
     }
 
+    await fetch("http://localhost:3000/api/tasks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(taskObject)
+
+    });
+    await loadTasksFromServer();
+
 
     // -commit "Запись в базу данный и на диск"
     taskNumber++;
-    myDatabase.push(taskObject);
-    localStorage.setItem("myTaskArray", JSON.stringify(myDatabase));
+    // myDatabase.push(taskObject);
+    // localStorage.setItem("myTaskArray", JSON.stringify(myDatabase));
 
     // -commit "Очистка и фокус"
     myInput.value = "";
@@ -104,12 +120,17 @@ function renderTasks() {
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.checked = task.isDone;
-        if (task.isDone === true) {
+        if (task.isDone) {
             checkbox.checked = true;
             span.style.textDecoration = "line-through";
         }
-        checkbox.addEventListener("change", function () {
+        checkbox.addEventListener("change", async function () {
             task.isDone = checkbox.checked;
+            await fetch("http://localhost:3000/api/tasks/toggle", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: task.id, isDone: checkbox.checked })
+            });
             localStorage.setItem("myTaskArray", JSON.stringify(myDatabase));
             renderTasks();
         });
@@ -320,7 +341,7 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-pencilBtn.addEventListener("click", function(){
+pencilBtn.addEventListener("click", function () {
     goalsForm.classList.toggle("hidden");
 });
 
