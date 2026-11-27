@@ -353,7 +353,7 @@ pencilBtn.addEventListener("click", function () {
     goalsForm.classList.toggle("hidden");
 });
 
-addGoalBtn.addEventListener("click", function () {
+addGoalBtn.addEventListener("click", async function () {
     if (goalTitleInput.value.trim() === "")
         return;
     const newGoal = {
@@ -363,12 +363,16 @@ addGoalBtn.addEventListener("click", function () {
         description: goalDescInput.value.trim(),
         isDone: false
     }
-    goalsDatabase.push(newGoal);
+    await fetch("http://localhost:3000/api/goals", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newGoal)
+    });
+    await loadGoalsFromServer();
     goalsForm.classList.add("hidden");
     goalTitleInput.value = "";
     goalDateInput.value = "";
     goalDescInput.value = "";
-    renderGoals();
 });
 
 function renderGoals() {

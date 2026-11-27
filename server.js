@@ -61,7 +61,16 @@ app.post("/api/tasks", function(req, res){
     });
 });
 app.post("/api/goals", function(req, res){
-    
+    const newGoal = req.body;
+    const stmt = db.prepare("INSERT INTO goals (title, deadline, description) VALUES (?, ?, ?)");
+    const result = stmt.run(newGoal.title, newGoal.deadline, newGoal.description);
+    res.json({
+        id: Number(result.lastInsertRowid),
+        title: newGoal.title,
+        deadline: newGoal.deadline,
+        description: newGoal.description,
+        isDone: 0
+    });
 });
 
 app.listen(PORT, function(){
